@@ -200,7 +200,7 @@ Element.prototype.ID = function(str){
 	return this;
 }
 // Chainable changing of attribute. If no value specified returns that attribute.
-Element.prototype.Attr = function(name, value)=>{
+Element.prototype.Attr = function(name, value){
 	if(!value)
 		return this.getAttribute(name);
 	else
