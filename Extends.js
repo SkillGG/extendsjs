@@ -194,9 +194,12 @@ Array.prototype.getFirstMatchingObjectV = function(match){
 Array.prototype.getLastMatchingObjectV = function(match){
 	return (r = (this.getAllMatchingObjectsV(match) ) )?r.getLastItem()?r.getLastItem():null:null;
 }
-// Chainable changing of id. If no id specified returns its id.
-Element.prototype.ID = function(str){
-	this.id = str;
+// Chainable changing of id attribute. If no value specified returns that attribute.
+Element.prototype.ID = function(value){
+	if(!value)
+		return this.id;
+	else
+		this.id = value;
 	return this;
 }
 // Chainable changing of attribute. If no value specified returns that attribute.
