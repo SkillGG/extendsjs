@@ -207,7 +207,7 @@ Element.prototype.Attr = function(name, value){
 	if(!value)
 		return this.getAttribute(name);
 	else
-		setAttribute(name, value);
+		this.setAttribute(name, value);
 	return this;
 }
 // Clears inside of given element. It deletes every attribute except for id and classes!
