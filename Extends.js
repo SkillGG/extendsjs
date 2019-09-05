@@ -1,7 +1,7 @@
 /***
 	Small handy set of functions to improve visibility of code :P
 	Coded by: SkillGG
-	VERSION: 1.8
+	VERSION: 1.9
 */
 
 // Returns last item of the array
@@ -66,6 +66,19 @@ Array.prototype.getAllMatchingObjectsA = function(match){
 	});
 	return (r||[]).length > 0?(r||null):null;
 }
+// C# LINQ's Array.Find(cb, value)
+// returns array of items that return true when parsed through func f
+Array.prototype.where = function(f) {
+	let ret = [];
+	this.forEach(e=>{if(f(e))ret.push(e);});
+	return ret;
+};
+// .where() that makes available multi-purpose checking functions
+Array.prototype.valuedWhere = function(f, v){
+let ret = [];
+	this.forEach(e=>{if(f(e,v))ret.push(e);});
+	return ret;
+};
 // Returns last `object` from array that share same atributes.
 Array.prototype.getLastMatchingObjectA = function(match){
 	if(!((match === Object(match))&& 	// Check if is an object
@@ -264,6 +277,12 @@ Element.prototype.clearClass = function(){
 Element.prototype.classEqual = function(...c){
 	this.clearClass();
 	c.forEach(e=>this.addClasses(e));
+	return this;
+}
+// Chainable changing of style.cssText. If no value specified returns its style.cssText.
+Element.prototype.cssText = function(v){
+	if(!v) return this.style.cssText;
+	this.style.cssText = v;
 	return this;
 }
 // It changes text into regular Expression.
