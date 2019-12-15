@@ -4,6 +4,8 @@
 	VERSION: 1.9
 */
 
+// Checks if number is even
+Number.isEven = (x)=>(x || 0)%2===0?true:false;
 // Returns last item of the array
 Array.prototype.getLastItem = function() {
 	return this[this.length-1] || null;
@@ -75,7 +77,7 @@ Array.prototype.where = function(f) {
 };
 // .where() that makes available multi-purpose checking functions
 Array.prototype.valuedWhere = function(f, v){
-let ret = [];
+	let ret = [];
 	this.forEach(e=>{if(f(e,v))ret.push(e);});
 	return ret;
 };
@@ -285,6 +287,15 @@ Element.prototype.cssText = function(v){
 	this.style.cssText = v;
 	return this;
 }
+// Add new css rules after current cssText
+Element.prototype.addCSS = function(...v) {
+	v.forEach(e=>{
+		if(typeof e === "string"){
+			this.cssText(`${this.cssText()}\n${e};`);
+		}
+	});
+	return this;
+};
 // It changes text into regular Expression.
 RegExp.toRegExp = function(text){
 	return new RegExp(text.replace(/([\\\/$^.])/g, `\\$1`));
@@ -313,6 +324,41 @@ Exts.element = (tag, d)=>{
 // document.createElement("div") shortcut
 Exts.DIV = ()=>{
 	return Exts.element("div");
+}
+// returns div with vertically aligned text
+/*
+	args: {
+		css: {
+			inn: ``,	// innerCSS
+			out: ``		// outer CSS
+		}
+	}
+	r:{
+		outer:null,		//outside (horiz. align) box
+		inner:null, 	//inner (vertical align) box
+		// FUNCS
+		Text: inner.Text, HTML: outer.HTML, innerHTML: inner.HTML
+	}
+*/
+Exts.v_alignDIV = (css)=>{
+	let outDIV = Exts.DIV();
+	let innDIV = Exts.DIV();
+	outDIV.append(innDIV);
+	outDIV.cssText(`display: table; text-align: center;`);
+	innDIV.cssText(`display: table-cell; vertical-align: middle;`);
+	if(css)
+		if(css.out)
+			outDIV.addCSS(css.out);
+		else if(css.inn)
+			innDIV.addCSS(css.inn);
+	return {
+		element: outDIV || null,
+		outer: outDIV || null,
+		inner: innDIV || null,
+		Text: function($){return $?innDIV.Text($):this;},
+		HTML: function($){return $?outDIV.HTML($):this;},
+		innerHTML: function($){return $?innDIV.HTML($):this;}
+	};
 }
 // `document.createElement("input");input.type=type;input.placeholder=pholder;` shortcut
 Exts.INPUT = (type, pholder)=>{
