@@ -71,12 +71,19 @@ Array.prototype.getAllMatchingObjectsA = function(match){
 // C# LINQ's Array.Find(cb, value)
 // returns array of items that return true when parsed through func f
 Array.prototype.where = function(f) {
+	if(typeof f !== "function") return null;
 	let ret = [];
 	this.forEach(e=>{if(f(e))ret.push(e);});
 	return ret;
 };
+// First from .where
+// returns first item that returns true when parsed through func f
+Array.prototype.whereOne = function(f) {
+	return this.where(f)[0] || null;
+};
 // .where() that makes available multi-purpose checking functions
 Array.prototype.valuedWhere = function(f, v){
+	if(typeof f !== "function") return null;
 	let ret = [];
 	this.forEach(e=>{if(f(e,v))ret.push(e);});
 	return ret;
