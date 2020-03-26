@@ -11,6 +11,12 @@ ExtendsJS is a file with compact functions that allow more easy DOMElement modif
 >__Number.isEven(number)__
 
 Checks is number is even. Returns `true` if given is not a number.
+```
+Number.isEven(1); 	// false
+Number.isEven(2); 	// true
+Number.isEven("a"); // true ("a" is NaN = 0)
+Number.isEven(NaN);	// true (NaN = 0)
+```
 
 ---
 
