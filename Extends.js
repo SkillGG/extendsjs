@@ -1,7 +1,7 @@
 /***
 	Small handy set of functions to improve visibility of code :P
 	Coded by: SkillGG
-	VERSION: 1.9
+	VERSION: 1.10
 */
 
 // Checks if number is even
@@ -76,6 +76,16 @@ Array.prototype.where = function(f) {
 	this.forEach(e=>{if(f(e))ret.push(e);});
 	return ret;
 };
+// Deletes all items from the array
+// returns array of all deleted elements
+Array.prototype.clear = function() {
+	return this.splice(0, this.length);
+};
+// Does d(e) on each element in array that successfully passes f(e) test (returns true value)
+Array.prototype.doWhere = function(f, d) {
+	if(typeof f !== "function" || typeof d !== "function") return;
+	this.forEach(e=>{if(f(e)){d(e)}});
+}
 // First from .where
 // returns first item that returns true when parsed through func f
 Array.prototype.whereOne = function(f) {
