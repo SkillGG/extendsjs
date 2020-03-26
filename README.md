@@ -13,18 +13,16 @@ ExtendsJS is a file with compact functions that allow more easy DOMElement modif
 ###### Arguments
 - *number*:	value to check
 
-Checks is number is even. Returns *true* if given is not a number.
-
 *Returns*:
-- *`true`* 		if number is even
+- *`true`* 		if number is even or `NaN` (0)
 - *`false`* 	if number is odd
 
 ```javasctipt
-Number.isEven(1); 		// false
-Number.isEven(2); 		// true
-Number.isEven("3");		// true
-Number.isEven("a"); 	// true ("a" is NaN = 0)
-Number.isEven(NaN);		// true (NaN = 0)
+Number.isEven(1);			// false
+Number.isEven(2);			// true
+Number.isEven("3");			// true
+Number.isEven("a");			// true ("a" is NaN = 0)
+Number.isEven(NaN);			// true (NaN = 0)
 ```
 
 ---
