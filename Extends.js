@@ -41,7 +41,15 @@ Array.prototype.whereOne = function(f) { return this.where(f)[0] || null; };
 Array.prototype.valuedWhere = function(f, v){
 	if(typeof f !== "function") return null;
 	let ret = [];
-	this.forEach(e=>{if(f(e,v))ret.push(e);});
+	this.forEach((e,i,a)=>{
+		if(typeof v === "string"){
+			v=v==="$a"?a:v;
+			v=v==="$e"?e:v;
+			if(f(e,v.replace(/\${2}/g, " ").replace(/\$i/gi, i).replace(/ /g,"$"))) ret.push(e);
+		}
+		else
+			if(f(e,v)) ret.push(e);
+	});
 	return ret;
 };
 // Pushes to array if there is no same element
