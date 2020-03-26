@@ -7,17 +7,11 @@
 // Checks if number is even
 Number.isEven = (x)=>(x || 0)%2===0?true:false;
 // Returns last item of the array
-Array.prototype.getLastItem = function() {
-	return this[this.length-1] || null;
-};
+Array.prototype.getLastItem = function() { return this[this.length-1] || null; };
 // Sets last item of the array to given value
-Array.prototype.setLastItem = function(value) {
-	return (this[this.indexOf(this.getLastItem())] = value);
-};
+Array.prototype.setLastItem = function(value) { return (this[this.indexOf(this.getLastItem())] = value); };
 // Deletes last item of the array
-Array.prototype.unsetLastItem = function() {
-	return this.unsetItem(this.indexOf(this.getLastItem()));
-};
+Array.prototype.unsetLastItem = function() { return this.unsetItem(this.indexOf(this.getLastItem())); };
 // Deletes matching `object` by attributes.
 Array.prototype.unsetMatchingItemA = function(match){
 	let i;
@@ -78,9 +72,7 @@ Array.prototype.where = function(f) {
 };
 // Deletes all items from the array
 // returns array of all deleted elements
-Array.prototype.clear = function() {
-	return this.splice(0, this.length);
-};
+Array.prototype.clear = function() { return this.splice(0, this.length); };
 // Does d(e) on each element in array that successfully passes f(e) test (returns true value)
 Array.prototype.doWhere = function(f, d) {
 	if(typeof f !== "function" || typeof d !== "function") return;
@@ -88,9 +80,7 @@ Array.prototype.doWhere = function(f, d) {
 }
 // First from .where
 // returns first item that returns true when parsed through func f
-Array.prototype.whereOne = function(f) {
-	return this.where(f)[0] || null;
-};
+Array.prototype.whereOne = function(f) { return this.where(f)[0] || null; };
 // .where() that makes available multi-purpose checking functions
 Array.prototype.valuedWhere = function(f, v){
 	if(typeof f !== "function") return null;
@@ -129,8 +119,7 @@ Array.prototype.getLastMatchingObjectA = function(match){
 	return r || null;
 }
 // Pushes to array if there is no same element
-Array.prototype.pushIfNot = function(el)
-{
+Array.prototype.pushIfNot = function(el) {
 	if(this.indexOf(el) !== -1){
 		return false;
 	}
@@ -141,7 +130,7 @@ Array.prototype.pushIfNot = function(el)
 	return true;
 }
 // Pushes to array. If there is already an element it changes its value instead of doubling it.
-Array.prototype.pushIfNotChange = function(el){
+Array.prototype.pushIfNotChange = function(el) {
 	if(this.indexOf(el) !== -1){
 		this[this.indexOf(el)] = el;
 		return true
@@ -219,13 +208,9 @@ Array.prototype.getAllMatchingObjectsV = function(match){
 	return (r||[]).length > 0?(r||null):null;
 }
 // Returns first object from getAllMatchingObjectsV
-Array.prototype.getFirstMatchingObjectV = function(match){
-	return (r = (this.getAllMatchingObjectsV(match) ) )?r[0]?r[0]:null:null;
-}
+Array.prototype.getFirstMatchingObjectV = function(match){ return (r = (this.getAllMatchingObjectsV(match) ) )?r[0]?r[0]:null:null; }
 // Returns last object from getAllMatchingObjectsV
-Array.prototype.getLastMatchingObjectV = function(match){
-	return (r = (this.getAllMatchingObjectsV(match) ) )?r.getLastItem()?r.getLastItem():null:null;
-}
+Array.prototype.getLastMatchingObjectV = function(match){ return (r = (this.getAllMatchingObjectsV(match) ) )?r.getLastItem()?r.getLastItem():null:null; }
 // Chainable changing of id attribute. If no value specified returns that attribute.
 Element.prototype.ID = function(value){
 	if(!value)
@@ -314,9 +299,7 @@ Element.prototype.addCSS = function(...v) {
 	return this;
 };
 // It changes text into regular Expression.
-RegExp.toRegExp = function(text){
-	return new RegExp(text.replace(/([\\\/$^.])/g, `\\$1`));
-}
+RegExp.toRegExp = function(text){ return new RegExp(text.replace(/([\\\/$^.])/g, `\\$1`)); }
 // It concatenates all regexes into one with given flag.
 RegExp.concat = function (flags, ...regexs){
 	let srcs = "";
@@ -335,13 +318,9 @@ RegExp.concat = function (flags, ...regexs){
 
 let Exts = {};
 // document.createElement shortcut
-Exts.element = (tag, d)=>{
-	return (d || document).createElement(tag);
-}
+Exts.element = (tag, d)=>{ return (d || document).createElement(tag); }
 // document.createElement("div") shortcut
-Exts.DIV = ()=>{
-	return Exts.element("div");
-}
+Exts.DIV = (d)=>{ return Exts.element("div", d); }
 // returns div with vertically aligned text
 /*
 	args: {
