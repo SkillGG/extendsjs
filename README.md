@@ -17,7 +17,7 @@ ExtendsJS is a file with compact functions that allow more easy DOMElement modif
 - *`true`* 		if number is even or `NaN` (0)
 - *`false`* 	if number is odd
 
-```javasctipt
+```javascript
 Number.isEven(1);			// false
 Number.isEven(2);			// true
 Number.isEven("3");			// false
@@ -38,7 +38,7 @@ Returns last element from array (`arr[arr.length-1]`). If not present returns `n
 - *`null`*		if there is no last element (e.g. array is empty)
 - last *`Object`* in Array
 
-```javasctipt
+```javascript
 [3,4,5].getLastItem();		// returns 5
 [].getLastItem();		// returns null
 ```
@@ -54,7 +54,7 @@ It sets value to last existing element of an array. (`array[indexOfLastItem] = v
 
 *Function does not return any value.*
 
-```javasctipt
+```javascript
 q = ["a","b","c"];
 q.setLastItem("d");	// q = ["a", "b", "d"];
 ```
@@ -70,7 +70,7 @@ It unsets(deletes) elemenent with given index (`array[i]`). (Essentially `.splic
 *Returns*:
 - unseted element.
 
-```javasctipt
+```javascript
 q = ["a","b",3];
 r = q.unsetItem(1);	// q = ["a",3]; r = "b";
 ```
@@ -83,7 +83,7 @@ It unsets (deletes) last element.
 *Returns*:
 - unseted element.
 
-```javasctipt
+```javascript
 q = ["a","b",3];
 r = q.unsetLastItem();	// q = ["a","b"]; r = 3;
 ```
@@ -96,7 +96,7 @@ It removes every element from array.
 *Returns*:
 - *`Array`* containing every deleted element.
 
-```javasctipt
+```javascript
 q = [1,2,3];
 q.x = "2";
 copy = q.clear();	// copy = [1,2,3]; q = []; q.x = "2";
@@ -117,7 +117,7 @@ It returns every element that given to *func* as an argument returns *true*.
 - *`array`* of elements for whom `func(el)` returned *true*.
 - empty *`array`* if none elements found
 
-```javasctipt
+```javascript
 		// function that returns true if argument.i === 1
 IDEquals1 = function(x){ if(x.i===1) return true; return false;};
 q = [{i:1, n:"a"}, {i:2, g:0}, {i:3}];
@@ -143,7 +143,7 @@ It invokes *do* with elements that *func* returned *true* when invoked.
 
 *Function does not return any value.*
 
-```javasctipt
+```javascript
 q = [{id:1,message:"one"},{id:2,message:"two"},{id:3,message:"three"}];
 	// console.log `message` from each element that has id not equal 1
 q.doWhere(e=>e.id!==1,e=>console.log(e.message));
@@ -169,7 +169,7 @@ It returns first element that given to *func* as an argument returns *true*.
 - first element for whom `func(el)` returned *true*.
 - *`null`* if none elements found
 
-```javasctipt
+```javascript
 q = [{id:1, id2:0}, {id:1, id2:1}, {id:3}]
 q.whereOne(e=>e.id===1);	// returns {id:1, id2:0}
 ```
@@ -197,7 +197,7 @@ Parsed *value* is *value* that has been specially parsed. If *value* is an objec
 - *`array`* of elements that given to *func* with parsed *value* returned *true*.
 - empty *`array`* if none elements found.
 
-```javasctipt
+```javascript
 q = [{id:3, m:"three"}, {id:1, m:"one"}, {id:2, m:"two"}, {id:0, m:"zero"}]
 	// return each that has id same as index in an array
 q.valuedWhere((e,v)=>parseInt(v)===e.id,"$i");	// returns [{id:1, m:"one"},{id:2, m:"two"}]
@@ -223,7 +223,7 @@ If there is no element that returns *true* while being given as argument to *fun
 - *`true`*		if object has been pushed
 - *`false`*		if object has not been pushed
 
-````javasctipt
+````javascript
 q = [{a:1, b:2}, {a:2, b:1}, {a:1, b:1}];
 q.pushIfNot((c,a)=>(c.a === a.a && c.b === a.b)?true:false, {a:2, b:2})
 ````
@@ -246,7 +246,7 @@ If there is no element that returns *true* while being given as argument to *obj
 - *`true`*		if object has been pushed
 - *`false`*		if object has not been pushed
 
-````javasctipt
+````javascript
 q = [{a:1, b:2}, {a:2, b:1}, {a:1, b:1}];
 q.pushIfNot((c,a)=>(c.a === a.a && c.b === a.b)?true:false, {a:2, b:2})
 ````
