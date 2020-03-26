@@ -7,7 +7,7 @@ ExtendsJS is a file with compact functions that allow more easy DOMElement modif
 ### Added functions (non-prototype)
 
 
-#### Numbers.isEven
+#### Number.isEven
 >__Number.isEven(number)__
 
 ###### Arguments
@@ -20,7 +20,7 @@ ExtendsJS is a file with compact functions that allow more easy DOMElement modif
 ```javasctipt
 Number.isEven(1);			// false
 Number.isEven(2);			// true
-Number.isEven("3");			// true
+Number.isEven("3");			// false
 Number.isEven("a");			// true ("a" is NaN = 0)
 Number.isEven(NaN);			// true (NaN = 0)
 ```
@@ -40,7 +40,7 @@ Returns last element from array (`arr[arr.length-1]`). If not present returns `n
 
 ```javasctipt
 [3,4,5].getLastItem();		// returns 5
-[].getLastItem();			// returns null
+[].getLastItem();		// returns null
 ```
 
 
@@ -65,7 +65,7 @@ q.setLastItem("d");	// q = ["a", "b", "d"];
 ###### Arguments
 - *i*:	index of element to unset.
 
-It unsets(deletes) item with given index (`array[i]`). (Essentaily `.splice(i,1)`);
+It unsets(deletes) elemenent with given index (`array[i]`). (Essentially `.splice(i,1)`);
 
 *Returns*:
 - unseted element.
@@ -103,7 +103,7 @@ copy = q.clear();	// copy = [1,2,3]; q = []; q.x = "2";
 ```
 
 #### where
->__Array.prototype.where(func<el>)__
+>__Array.prototype.where(func&lt;el&gt;)__
 
 ###### Arguments
 - *func*:	`function` that defines the conditions of the element to search for.
@@ -124,7 +124,7 @@ q.where(e=>e.g===undefined);	// returns [{i:1, n:"a"},{i:3}]
 ```
 
 #### doWhere
->__Array.prototype.doWhere(func<el>, do)__
+>__Array.prototype.doWhere(func&lt;el&gt;, do)__
 
 ###### Arguments
 - *func*: 	`function` that defines the conditions of the element to search for. Should return *true* or *false*
@@ -146,7 +146,7 @@ results in console:
 ```
 
 #### whereOne
->__Array.prototype.whereOne(func<el>)__
+>__Array.prototype.whereOne(func&lt;el&gt;)__
 
 ###### Arguments
 - *func*: 	`function` that defines the conditions of the element to search for.
@@ -163,18 +163,18 @@ q.whereOne(e=>e.id===1);	// returns {id:1, id2:0}
 ```
 
 #### valuedWhere
->__Array.prototype.valuedWhere(func<el, val>, value)__
+>__Array.prototype.valuedWhere(func&lt;el, val&gt;, value)__
 
 ###### Arguments
 - *func*:	`function` that returns true or false given _two_ arguments.
 - *value*:	an object that is feed to *func* as a second argument.
 
-It returns every item that given to *func* with parsed *value* as an argument returns *true*.
+It returns every element that given to *func* with parsed *value* as an argument returns *true*.
 
 Parsed *value* is *value* that has been specially parsed. If *value* is an object then it is passed as is.
 
 *value* parsing:
-- If *value* is an string each `$i` in string is replaced with an index of checking item (to escape $ sign use `$$`).
+- If *value* is an string each `$i` in string is replaced with an index of checking elemenet (to escape $ sign use `$$`).
 - If *value* equals `'$e'` then second argument will be same as first.
 - If *value* `'$a'` then second argument will be whole array (`this`).
 
