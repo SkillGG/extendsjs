@@ -11,7 +11,7 @@ ExtendsJS is a file with compact functions that allow more easy DOMElement modif
 >__Number.isEven(number)__
 
 ###### Arguments
-- `number` is value to check if is even
+- *number*:	value to check
 
 Checks is number is even. Returns *true* if given is not a number.
 
