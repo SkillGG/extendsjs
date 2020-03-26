@@ -108,6 +108,9 @@ copy = q.clear();	// copy = [1,2,3]; q = []; q.x = "2";
 ###### Arguments
 - *func*:	`function` that defines the conditions of the element to search for.
 
+###### *func* arguments:
+- *el*:		element to check
+
 It returns every element that given to *func* as an argument returns *true*.
 
 *Returns*:
@@ -124,11 +127,17 @@ q.where(e=>e.g===undefined);	// returns [{i:1, n:"a"},{i:3}]
 ```
 
 #### doWhere
->__Array.prototype.doWhere(func&lt;el&gt;, do)__
+>__Array.prototype.doWhere(func&lt;el&gt;, do&lt;el&gt;)__
 
 ###### Arguments
 - *func*: 	`function` that defines the conditions of the element to search for. Should return *true* or *false*
 - *do*:		`function`(method) that takes one argument.
+
+###### *func* arguments:
+- *el*:		element to check
+
+###### *do* arguments:
+- *el*:		element that has been checked
 
 It invokes *do* with elements that *func* returned *true* when invoked.
 
@@ -151,6 +160,9 @@ results in console:
 ###### Arguments
 - *func*: 	`function` that defines the conditions of the element to search for.
 
+###### *func* arguments:
+- *el*:		element to check
+
 It returns first element that given to *func* as an argument returns *true*.
 
 *Returns*:
@@ -166,20 +178,23 @@ q.whereOne(e=>e.id===1);	// returns {id:1, id2:0}
 >__Array.prototype.valuedWhere(func&lt;el, val&gt;, value)__
 
 ###### Arguments
-- *func*:	`function` that returns true or false given _two_ arguments.
+- *func*:	`function` that defines the conditions of the element to search for.
 - *value*:	an object that is feed to *func* as a second argument.
+
+###### *func* arguments:
+- *el*:		element to check
+- *val*:		parsed *value*
 
 It returns every element that given to *func* with parsed *value* as an argument returns *true*.
 
 Parsed *value* is *value* that has been specially parsed. If *value* is an object then it is passed as is.
 
 *value* parsing:
-- If *value* is an string each `$i` in string is replaced with an index of checking elemenet (to escape $ sign use `$$`).
-- If *value* equals `'$e'` then second argument will be same as first.
-- If *value* `'$a'` then second argument will be whole array (`this`).
+- If *value* is an string each `$i` in string is replaced with an index of checking element (to escape $ sign use `$$`).
+- If *value* equals `'$a'` then second argument will be whole array.
 
 *Returns*:
-- *`array`* of elements that given to *func* with parsed *value* as second argument returned *true*.
+- *`array`* of elements that given to *func* with parsed *value* returned *true*.
 - empty *`array`* if none elements found.
 
 ```javasctipt
@@ -192,11 +207,15 @@ q.valuedWhere((e,v)=>parseInt(v)===e.id,"$i");	// returns [{id:1, m:"one"},{id:2
 ### Not fully implemented Array.prototype functions:
 
 #### pushIfNot
->Array.prototype.pushIfNot(func<check,add>, obj)
+>__Array.prototype.pushIfNot(func&lt;check,add&gt;, obj)__
 
 ###### Arguments
-- *func*:	`function` to check if element already matches. Function takes two arguments, checking object and adding object
-- *obj*:	object to push
+- *func*:		`function` to check if element already matches.
+- *obj*:		object to push.
+
+###### *func* arguments:
+- *check*:		checking object (currently)
+- *add*:		*obj*
 
 If there is no element that returns *true* while being given as argument to *func* than *obj* is pushed to array.
 
@@ -215,6 +234,10 @@ q.pushIfNot((c,a)=>(c.a === a.a && c.b === a.b)?true:false, {a:2, b:2})
 ###### Arguments
 - *func*:	`function` to check if element already matches. Function takes two arguments, checking object and adding object
 - *obj*:	object to push/change
+
+###### *func* arguments:
+- *check*:		checking object (currently)
+- *add*:		*obj*
 
 If *func* returns *true* then found element is substituted with *obj*
 If there is no element that returns *true* while being given as argument to *obj* than *obj* is pushed to array.
