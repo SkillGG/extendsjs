@@ -57,7 +57,7 @@ Array.prototype.pushIfNot = function(el) {
 	if(this.indexOf(el) !== -1){
 		return false;
 	}
-	else if(/* TODO: Check for attributes and values */) return false;
+	//else if(/* TODO: Check for attributes and values */) return false;
 	this.push(el);
 	return true;
 }
@@ -67,9 +67,9 @@ Array.prototype.pushIfNotChange = function(el) {
 		this[this.indexOf(el)] = el;	// change
 		return true;
 	}
-	else if(/* TODO: Check for attributes and values */){		// if object with more/less attributes, but same values
+	//else if(/* TODO: Check for attributes and values */){		// if object with more/less attributes, but same values
 		// TODO: 
-	}
+	//}
 	else this.push(el); // push
 }
 // Chainable changing of id attribute. If no value specified returns that attribute.
