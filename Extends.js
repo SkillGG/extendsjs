@@ -5,7 +5,7 @@
 */
 
 // Checks if number is even
-Number.isEven = (x)=>(x || 0)%2===0?true:false;
+Number.isEven = (x)=>(parseInt(x) || 0)%2===0?true:false;
 // Returns last item of the array
 Array.prototype.getLastItem = function() { return this[this.length-1] || null; };
 // Sets last item of the array to given value
@@ -74,7 +74,7 @@ Array.prototype.pushIfNotChange = function(el) {
 }
 // Chainable changing of id attribute. If no value specified returns that attribute.
 Element.prototype.ID = function(value){
-	if(!value)
+	if(value === undefined)
 		return this.id;
 	else
 		this.id = value;
@@ -82,7 +82,7 @@ Element.prototype.ID = function(value){
 }
 // Chainable changing of attribute. If no value specified returns that attribute.
 Element.prototype.Attr = function(name, value){
-	if(!value)
+	if(value === undefined)
 		return this.getAttribute(name);
 	else
 		this.setAttribute(name, value);
@@ -99,7 +99,7 @@ Element.prototype.clear = function(){
 };
 // Chainable changing of innerHTML. If no value specified returns its innerHTML.
 Element.prototype.HTML = function(value){
-	if(!value)
+	if(value === undefined)
 		return this.innerHTML;
 	else
 		this.innerHTML = value;
@@ -107,7 +107,7 @@ Element.prototype.HTML = function(value){
 }
 // Chainable changing of innerText. If no value specified returns its innerText.
 Element.prototype.Text = function(value){
-	if(!value)
+	if(value === undefined)
 		return this.innerText;
 	else
 		this.innerText = value;
@@ -145,9 +145,9 @@ Element.prototype.classEqual = function(...c){
 	return this;
 }
 // Chainable changing of style.cssText. If no value specified returns its style.cssText.
-Element.prototype.cssText = function(v){
-	if(!v) return this.style.cssText;
-	this.style.cssText = v;
+Element.prototype.cssText = function(value){
+	if(value === undefined) return this.style.cssText;
+	this.style.cssText = value;
 	return this;
 }
 // Add new css rules after current cssText
