@@ -21,7 +21,7 @@ Checks is number is even. Returns `true` if given is not a number.
 
 Returns last item from array (`arr[arr.length-1]`). If not present returns `null`.
 
-### setLastItem
+#### setLastItem
 >Array.prototype.setLastItem( value )
 
 `value` is value to be set to the last item.
