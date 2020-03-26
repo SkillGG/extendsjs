@@ -261,7 +261,132 @@ q.pushIfNot((c,a)=>(c.a === a.a && c.b === a.b)?true:false, {a:2, b:2})
 ###### Arguments
 - *value*:	value to be set.
 
-If *value* is specified sets element's id attribute to given value. If not returns current id value.
+If *value* is specified sets element's id attribute to given *value*. If not returns current id value.
 
 *Returns*:
+- `Element` if *value* has been specified
+- `Element.id` if *value* has not been specified
 
+#### HTML
+>Element.prototype.HTML([value])
+
+###### Arguments
+- *value*:	value to be set.
+
+If *value* is specified sets element's innerHTML to given *value*. If not returns current innerHTML value.
+
+*Returns*:
+- `Element` if *value* has been specified
+- `Element.innerHTML` if *value* has not been specified
+
+#### Text
+>Element.prototype.Text([value])
+
+###### Arguments
+- *value*:	value to be set.
+
+If *value* is specified sets element's innerText to given *value*. If not returns current innerText value.
+
+*Returns*:
+- `Element` if *value* has been specified
+- `Element.innerText` if *value* has not been specified
+
+#### cssText
+>Element.prototype.cssText([value])
+
+###### Arguments
+- *value*:	value to be set.
+
+If *value* is specified sets element's style.cssText to given *value*. If not returns current style.cssText value.
+
+*Returns*:
+- `Element` if *value* has been specified
+- `Element.style.cssText` if *value* has not been specified
+
+#### addCSS
+>Element.prototype.addCSS(...css)
+
+###### Arguments
+- *css*:	css strings to be added.
+
+Adds each string of CSS to style.cssText.
+
+*Returns*:
+- `Element`
+
+#### addClasses
+>Element.prototype.addClasses(...classes)
+
+###### Arguments
+- *classes*:	classes to be added.
+
+Adds HTML classes to `Element`.
+
+*Returns*:
+- `Element`
+
+#### clearClass
+>Element.prototype.clearClass()
+
+Removes all classes.
+
+*Returns*:
+- `Element`
+
+#### classEqual
+>Element.prototype.classEqual(...classes)
+
+###### Arguments
+- *classes*:	classes to be added.
+
+Removes all classes, then adds given ones.
+
+*Returns*:
+- `Element`
+
+#### Attr
+>Element.prototype.Attr([saveID], [saveClasses])
+
+###### Arguments
+- *name*:	name of attribute
+- *value*:	value to be set.
+
+If *value* is specified changes attribute named *name* to given *value*. If not returns current value of given attribute.
+
+*Returns*:
+- `Element` if *value* has been specified
+-  **Attribute's value** if *value* has not been specified
+
+#### removeAllAttributes
+>Element.prototype.removeAllAttributes(name, [value])
+
+###### Arguments
+- *saveID*:			flag to leave element's ID attribute.
+- *saveClasses*:	flag to leave element's class attribute.
+
+Removes every set attribute.
+
+If *saveID* is **defined**, id attribute will be saved.
+
+If *saveClasses* is **defined**, class attribute will be saved.
+
+*Returns*:
+- `Element`
+
+#### clear
+>Element.prototype.clear()
+
+Replaces given element with new element with the same id and classes.
+
+*Returns*:
+- `Element` that has been placed in DOM in exchange of `this`
+
+````javascript
+// create element
+el = document.createElement("div");
+el.id = "a";
+el.addClasses("c1","c2");
+document.body.append(el);	// el in DOM
+el = el.clear();	// el is still in DOM
+el.clear();	// el is no more in DOM
+````
