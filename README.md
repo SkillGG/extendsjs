@@ -105,6 +105,7 @@ q.where(e=>e.g===undefined);	// returns [{i:1, n:"a"},{i:3}]
 >__Array.prototype.doWhere(function, do)__
 
 `function` is function that returns true or false. Takes one argument.
+
 `do` is method that takes one argument.
 
 It invokes `do` with elements that `function` returned true when invoked.
@@ -133,6 +134,7 @@ Returns first item for whom `function(item)` returned `true`.
 >__Array.prototype.valuedWhere(function, value)__
 
 `function` is function that returns true or false given _two_ arguments.
+
 `value` is an object that is feed to `function` as a second argument.
 
 It returns every item that given to `function` with parsed `value` as an argument returns `true`.
