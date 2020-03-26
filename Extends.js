@@ -12,55 +12,11 @@ Array.prototype.getLastItem = function() { return this[this.length-1] || null; }
 Array.prototype.setLastItem = function(value) { return (this[this.indexOf(this.getLastItem())] = value); };
 // Deletes last item of the array
 Array.prototype.unsetLastItem = function() { return this.unsetItem(this.indexOf(this.getLastItem())); };
-// Deletes matching `object` by attributes.
-Array.prototype.unsetMatchingItemA = function(match){
-	let i;
-	if(i = this.getFirstMatchingObjectA(match)){
-		return this.unsetItem(this.indexOf(i));
-	}
-}
-// Deletes matching `object` by attributes and values
-Array.prototype.unsetMatchingItemV = function(match){
-	let i;
-	if(i = this.getFirstMatchingObjectV(match)){
-		return this.unsetItem(this.indexOf(i));
-	}
-}
 // Deletes item with given index (short for this.splice(x,1))
 Array.prototype.unsetItem = function(index){
 	if(index === -1)
 		return null;
 	return this.splice(index, 1)[0];
-}
-// Returns all `objects` from array that share same atributes.
-Array.prototype.getAllMatchingObjectsA = function(match){
-	if(!((match === Object(match))&& 	// Check if is an object
-		typeof match !== 'function'))	// exclude functions
-		return null;
-	let r = [];
-	this.forEach((e)=>{
-		let eMatch = [];
-		if(	(e === Object(e))&& 		// Check if is an object
-			typeof e !== 'function'&& 	// exclude functions
-			!Array.isArray(e)){			// exclude arrays
-				let matchAttrs = [];
-				if(Array.isArray(match))
-					matchAttrs = match;	
-				else 
-					Object.entries(match).forEach((z)=>{matchAttrs.push(z[0])});
-				let fail = false;
-				matchAttrs.forEach((x)=>{
-					if(!(e[x])){
-						fail = true;
-						return;
-					}
-				});
-				if(fail)
-					return;
-				else r.push(e);
-		}
-	});
-	return (r||[]).length > 0?(r||null):null;
 }
 // C# LINQ's Array.Find(cb, value)
 // returns array of items that return true when parsed through func f
@@ -88,129 +44,26 @@ Array.prototype.valuedWhere = function(f, v){
 	this.forEach(e=>{if(f(e,v))ret.push(e);});
 	return ret;
 };
-// Returns last `object` from array that share same atributes.
-Array.prototype.getLastMatchingObjectA = function(match){
-	if(!((match === Object(match))&& 	// Check if is an object
-		typeof match !== 'function'))	// exclude functions
-		return null;
-	let r;
-	this.forEach((e)=>{
-		let eMatch = [];
-		if(	(e === Object(e))&& 		// Check if is an object
-			typeof e !== 'function'&& 	// exclude functions
-			!Array.isArray(e)){			// exclude arrays
-				let matchAttrs = [];
-				if(Array.isArray(match))
-					matchAttrs = match;	
-				else 
-					Object.entries(match).forEach((z)=>{matchAttrs.push(z[0])});
-				let fail = false;
-				matchAttrs.forEach((x)=>{
-					if(!(e[x])){
-						fail = true;
-						return;
-					}
-				});
-				if(fail)
-					return;
-				else r = e;
-		}
-	});
-	return r || null;
-}
 // Pushes to array if there is no same element
 Array.prototype.pushIfNot = function(el) {
 	if(this.indexOf(el) !== -1){
 		return false;
 	}
-	else if(this.getFirstMatchingObjectV(el)){
-		return false;
-	}
+	else if(/* TODO: Check for attributes and values */) return false;
 	this.push(el);
 	return true;
 }
 // Pushes to array. If there is already an element it changes its value instead of doubling it.
 Array.prototype.pushIfNotChange = function(el) {
-	if(this.indexOf(el) !== -1){
-		this[this.indexOf(el)] = el;
-		return true
+	if(this.indexOf(el) !== -1){		// if object exists
+		this[this.indexOf(el)] = el;	// change
+		return true;
 	}
-	else if(this.getFirstMatchingObjectA(el)){
-		let z = this.getFirstMatchingObjectA(el);
-		this[this.indexOf(z)] = el;
-		return true
-
+	else if(/* TODO: Check for attributes and values */){		// if object with more/less attributes, but same values
+		// TODO: 
 	}
-	else{
-		this.push(el);
-	}
+	else this.push(el); // push
 }
-// Returns firt macthing `object` by attributes
-Array.prototype.getFirstMatchingObjectA = function(match){
-	if(!((match === Object(match))&& 	// Check if is an object
-		typeof match !== 'function'))	// exclude functions
-		return null;
-	let r;
-	this.forEach((e)=>{
-		if(!r){
-			let eMatch = [];
-			if(	(e === Object(e))&& 		// Check if is an object
-				typeof e !== 'function'&& 	// exclude functions
-				!Array.isArray(e)){			// exclude arrays
-					let matchAttrs = [];
-					if(Array.isArray(match))
-						matchAttrs = match;	
-					else 
-						Object.entries(match).forEach((z)=>{matchAttrs.push(z[0])});
-					let fail = false;
-					matchAttrs.forEach((x)=>{
-						if(!(e[x])){
-							fail = true;
-							return;
-						}
-					});
-					if(fail)
-						return;
-					else r = e;
-			}
-		}
-	});
-	return r || null;
-}
-// Returns all `objects` matching by attributes and their values.
-Array.prototype.getAllMatchingObjectsV = function(match){
-	if(!((match === Object(match))&& 	// Check if is an object
-		typeof match !== 'function'))	// exclude functions
-		return null;
-	let r = [];
-	this.forEach((e)=>{
-		let eMatch = [];
-		if(	(e === Object(e))&& 		// Check if is an object
-			typeof e !== 'function'&& 	// exclude functions
-			!Array.isArray(e)){			// exclude arrays
-				let matchAttrs = [];
-				if(Array.isArray(match))
-					return;
-				else 
-					Object.entries(match).forEach((z)=>{matchAttrs.push({n:z[0],v:z[1]})});
-				let fail = false;
-				matchAttrs.forEach((x)=>{
-					if(!(e[x.n]) || (e[x.n] !== x.v)){
-						fail = true;
-						return;
-					}
-				});
-				if(fail)
-					return;
-				else r.push(e);
-		}
-	});
-	return (r||[]).length > 0?(r||null):null;
-}
-// Returns first object from getAllMatchingObjectsV
-Array.prototype.getFirstMatchingObjectV = function(match){ return (r = (this.getAllMatchingObjectsV(match) ) )?r[0]?r[0]:null:null; }
-// Returns last object from getAllMatchingObjectsV
-Array.prototype.getLastMatchingObjectV = function(match){ return (r = (this.getAllMatchingObjectsV(match) ) )?r.getLastItem()?r.getLastItem():null:null; }
 // Chainable changing of id attribute. If no value specified returns that attribute.
 Element.prototype.ID = function(value){
 	if(!value)
