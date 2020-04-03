@@ -1,11 +1,34 @@
 /***
 	Small handy set of functions to improve visibility of code :P
 	Coded by: SkillGG
-	VERSION: 1.10
+	VERSION: 1.11
 */
 
 // Checks if number is even
-Number.isEven = (x)=>(parseInt(x) || 0)%2===0?true:false;
+Number.isEven=x=>(parseInt(x)||0)%2==0;
+// Logs just once
+console.logOnce = (id, showid, ...log)=>{
+	if(!console.LoggedArray) console.LoggedArray = [];
+	if(console.LoggedArray.where(e=>e===id).length > 0) return null;
+	if(!showid)	console.log(...log);
+	else console.log(id, ...log);
+	console.LoggedArray.push(id);
+}
+console.logTimes = (id, times,showid, ...log)=>{
+	if(!console.TimesArray) console.TimesArray = [];
+	let arr;
+	if(arr = console.TimesArray.whereOne(e=>e.id===id)){
+		// more than once
+		if(arr.t++ < arr.max){
+			if(!showid) console.log(...log);
+			else console.log(id, ...log);
+		}
+		return;
+	}
+	if(!showid)	console.log(...log);
+	else console.log(id, ...log);
+	console.TimesArray.push({id: id, t:1, max: times});
+}
 // Returns last item of the array
 Array.prototype.getLastItem = function() { return this[this.length-1] || null; };
 // Sets last item of the array to given value
@@ -23,16 +46,16 @@ Array.prototype.unsetItem = function(index){
 Array.prototype.where = function(f) {
 	if(typeof f !== "function") return null;
 	let ret = [];
-	this.forEach(e=>{if(f(e))ret.push(e);});
+	this.forEach((e,i,a)=>{if(f(e,i,a))ret.push(e);});
 	return ret;
 };
 // Deletes all items from the array
 // returns array of all deleted elements
 Array.prototype.clear = function() { return this.splice(0, this.length); };
-// Does d(e) on each element in array that successfully passes f(e) test (returns true value)
+// Does d(e,i,a) on each element in array that successfully passes f(e) test (returns true value)
 Array.prototype.doWhere = function(f, d) {
 	if(typeof f !== "function" || typeof d !== "function") return;
-	this.forEach(e=>{if(f(e)){d(e)}});
+	this.forEach((e,i,a)=>{if(f(e, i, a)){d(e, i, a)}});
 }
 // First from .where
 // returns first item that returns true when parsed through func f
@@ -55,17 +78,16 @@ Array.prototype.valuedWhere = function(f, v){
 // Pushes to array if there is no same element
 Array.prototype.pushIfNot = function(el) {
 	if(this.indexOf(el) !== -1){
-		return false;
+		return !1;
 	}
 	//else if(/* TODO: Check for attributes and values */) return false;
 	this.push(el);
-	return true;
+	return !0;
 }
 // Pushes to array. If there is already an element it changes its value instead of doubling it.
 Array.prototype.pushIfNotChange = function(el) {
 	if(this.indexOf(el) !== -1){		// if object exists
-		this[this.indexOf(el)] = el;	// change
-		return true;
+		return this[this.indexOf(el)] = el,!0; // change and return true
 	}
 	//else if(/* TODO: Check for attributes and values */){		// if object with more/less attributes, but same values
 		// TODO: 
