@@ -1,7 +1,7 @@
 /***
 	Small handy set of functions to improve visibility of code :P
 	Coded by: SkillGG
-	VERSION: 1.11
+	VERSION: 1.12
 */
 
 // Checks if number is even
@@ -40,6 +40,15 @@ Array.prototype.unsetItem = function(index){
 	if(index === -1)
 		return null;
 	return this.splice(index, 1)[0];
+}
+// C# LINQ's Array.ConvertAll<T>(Converter<TIn, TOut>)
+// Converts all items in array according to converter
+Array.prototype.convertAll = function(converter){
+	let ret = [];
+	this.forEach((e,i)=>{
+		ret[i] = converter(e);
+	});
+	return this;
 }
 // C# LINQ's Array.Find(cb, value)
 // returns array of items that return true when parsed through func f
