@@ -48,7 +48,7 @@ Array.prototype.convertAll = function(converter){
 	this.forEach((e,i)=>{
 		ret[i] = converter(e);
 	});
-	return this;
+	return ret;
 }
 // C# LINQ's Array.Find(cb, value)
 // returns array of items that return true when parsed through func f
