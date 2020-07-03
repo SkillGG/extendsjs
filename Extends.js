@@ -1,9 +1,9 @@
 /***
 	Small handy set of functions to improve visibility of code :P
 	Coded by: SkillGG
-	VERSION: 1.12
-*/
+	VERSION: 1.13
 
+*/
 // Checks if number is even
 Number.isEven=x=>(parseInt(x)||0)%2==0;
 // Logs just once
@@ -65,6 +65,10 @@ Array.prototype.clear = function() { return this.splice(0, this.length); };
 Array.prototype.doWhere = function(f, d) {
 	if(typeof f !== "function" || typeof d !== "function") return;
 	this.forEach((e,i,a)=>{if(f(e, i, a)){d(e, i, a)}});
+}
+// Returns indexOf firt item that passes through func f
+Array.prototype.indexWhere = function(f){
+	return this.indexOf(this.whereOne(f));
 }
 // First from .where
 // returns first item that returns true when parsed through func f
