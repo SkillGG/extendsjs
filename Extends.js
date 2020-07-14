@@ -1,7 +1,7 @@
 /***
 	Small handy set of functions to improve visibility of code :P
 	Coded by: SkillGG
-	VERSION: 1.13
+	VERSION: 1.15
 
 */
 // Checks if number is even
@@ -64,7 +64,7 @@ Array.prototype.clear = function() { return this.splice(0, this.length); };
 // Does d(e,i,a) on each element in array that successfully passes f(e) test (returns true value)
 Array.prototype.doWhere = function(f, d) {
 	if(typeof f !== "function" || typeof d !== "function") return;
-	this.forEach((e,i,a)=>{if(f(e, i, a)){d(e, i, a)}});
+	this.where(f).forEach(d);
 }
 // Returns indexOf firt item that passes through func f
 Array.prototype.indexWhere = function(f){
@@ -232,26 +232,36 @@ Exts.DIV = (d)=>{ return Exts.element("div", d); }
 		Text: inner.Text, HTML: outer.HTML, innerHTML: inner.HTML
 	}
 */
-Exts.v_alignDIV = (css)=>{
+Exts.v_alignDIV = (id,cl,css)=>{
 	let outDIV = Exts.DIV();
 	let innDIV = Exts.DIV();
 	outDIV.append(innDIV);
 	outDIV.cssText(`display: table; text-align: center;`);
 	innDIV.cssText(`display: table-cell; vertical-align: middle;`);
-	if(css)
+	if(css){
 		if(css.out)
 			outDIV.addCSS(css.out);
-		else if(css.inn)
+		if(css.inn)
 			innDIV.addCSS(css.inn);
-	return {
-		element: outDIV || null,
-		outer: outDIV || null,
-		inner: innDIV || null,
-		Text: function($){return $?innDIV.Text($):this;},
-		HTML: function($){return $?outDIV.HTML($):this;},
-		innerHTML: function($){return $?innDIV.HTML($):this;}
-	};
+	}
+	if(id){
+		if(id.out)
+			outDIV.ID(id.out);
+		if(id.inn)
+			innDIV.ID(id.inn);
+	}
+	if(cl){
+		if(cl.out)
+			outDIV.classEqual(cl.out);
+		if(cl.inn)
+			innDIV.classEqual(cl.inn);
+	}
+	outDIV.inner = innDIV || null;
+	outDIV.Text = function($){return $?innDIV.Text($):this.Text($);};
+	outDIV.iHTML = function($){return $?innDIV.HTML($):this.HTML($);};
+	return outDIV;
 }
+
 // `document.createElement("input");input.type=type;input.placeholder=pholder;` shortcut
 Exts.INPUT = (type, pholder)=>{
 	let r = Exts.element("input")
